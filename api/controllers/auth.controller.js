@@ -33,7 +33,7 @@ export const signin = async (req,res,next) => {
         next(errorHandler(400,'All fields are required'));
     }
     try{
-        const validUser = await User.findOne({email})
+        const validUser = await User.findOne({email});
         if(!validUser){
             return next(errorHandler(404,'User not found'));
         }
