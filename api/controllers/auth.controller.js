@@ -60,7 +60,7 @@ export const signin = async (req,res,next) => {
 }
 
 export const google = async (req,res,next) => {
-    const {email,name,googlePhotoURL} = req.body;
+    const {name,email,googlePhotoURL} = req.body;
     
     try{
         const user = await User.findOne({email});
@@ -81,6 +81,7 @@ export const google = async (req,res,next) => {
                 password: hashedPassowrd,
                 profilePicture: googlePhotoURL,
             });
+            console.log(newUser.profilePicture);
             await newUser.save();
             const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
             const {password,...rest} = newUser._doc;
