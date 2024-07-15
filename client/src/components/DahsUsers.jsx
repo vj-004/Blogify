@@ -48,6 +48,7 @@ export default function DashUsers() {
     }
   }
   const handleDeleteUser = async () => {
+    
     try{
         const res = await fetch(`/api/user/delete/${userIdToDelete}`,{
             method: 'DELETE',
@@ -108,12 +109,16 @@ export default function DashUsers() {
                       {user.isAdmin ? (<FaCheck className='text-green-500'/>) : (<FaTimes className='text-red-500'/>)}
                   </Table.Cell>
                   <Table.Cell>
-                      <span className='font-medium text-red-500 hover:underline cursor-pointer'
+                      {user.isAdmin ? (<span 
+                      className='font-medium text-gray-500 hover:underline cursor-pointer'
+                      >Delete</span>) : (
+                        <span className='font-medium text-red-500 hover:underline'
                         onClick={() => {
                         setShowModal(true);
                         setUserIdToDelete(user._id);
                       }}
                       >Delete</span>
+                      )}
                   </Table.Cell>
 
                 </Table.Row>
