@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {Sidebar} from 'flowbite-react'
-import {HiAnnotation, HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiUser} from 'react-icons/hi'
+import {HiAnnotation, HiArrowSmRight, HiChartPie, HiDocumentText, HiOutlineUserGroup, HiUser} from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signoutSuccess } from '../redux/user/userSlice';
@@ -38,11 +38,22 @@ export default function DashSidebar() {
     <Sidebar className='w-full md:w-56'>
         <Sidebar.Items>
             <Sidebar.ItemGroup className='flex flex-col gap-1'>
+            {currentUser.isAdmin && (
+                <Link to='/dashboard?tab=dash'>
+                    <Sidebar.Item
+                    active={tab == 'dash' || !tab}
+                    icon={HiChartPie}
+                    as='div'>
+                        Dashboard
+                    </Sidebar.Item>
+                </Link>
+            )}
             <Link to='/dashboard?tab=profile'>
                 <Sidebar.Item active={tab === 'profile'} icon={HiUser} label={currentUser.isAdmin? 'Admin' : "User"} labelColor='dark' as='div'>
                     Profile
                 </Sidebar.Item>
             </Link>
+            
             {currentUser.isAdmin && (
                 <Link to='/dashboard?tab=posts'>
                     <Sidebar.Item
